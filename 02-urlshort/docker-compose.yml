@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: urlshort-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: url
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - url-postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d url"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  url-postgres-data:
