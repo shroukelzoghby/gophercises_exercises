@@ -1,0 +1,14 @@
+<h1>{{.Title}}</h1>
+<p>{{range .Story}}{{.}}<br>{{end}}</p>
+{{if .Options}}
+<ul>
+{{range .Options}}
+<li><a href="/?arc={{.Arc}}">{{.Text}}</a></li>
+{{end}}
+</ul>
+{{else}}
+<center>
+    No options available.
+<a href="/">Go back to the start</a>
+</center>
+{{end}}
